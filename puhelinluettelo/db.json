@@ -1,0 +1,25 @@
+{
+  "persons": [
+    {
+      "name": "Arto",
+      "number": "19",
+      "date": "2020-07-31T12:48:54.940Z",
+      "important": false,
+      "id": 1
+    },
+    {
+      "name": "May",
+      "number": "7",
+      "date": "2020-07-31T12:52:52.292Z",
+      "important": false,
+      "id": 2
+    },
+    {
+      "name": "Herbert",
+      "number": "31",
+      "date": "2020-08-18T09:35:04.210Z",
+      "important": true,
+      "id": 10
+    }
+  ]
+}
