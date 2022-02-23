@@ -8,7 +8,7 @@ const getAll = () => {
 
 const create = newObject => {
   const request = axios.post(baseUrl, newObject)
-  console.log(request.body)
+  console.log(newObject)
   return request.then(response => response.data)
 }
 
@@ -17,7 +17,7 @@ const update = (id, newObject) => {
   return request.then(response => response.data)
 }
 
-const deletePerson = (id, name) => {
+const deletePerson = (id, content) => {
     axios.delete(`${baseUrl}/${id}`)
     .catch(error => {
       console.log('fail')

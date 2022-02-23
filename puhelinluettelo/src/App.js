@@ -30,16 +30,16 @@ const App = () => {
     event.preventDefault()
     console.log('button clicked', event.target)
     const nameObject = {
-      name: newName,
+      content: newName,
       number: newNumber,
       date: new Date().toISOString(),
       important: Math.random() > 0.5,
     }
-    const sameName = (element) => element.name === newName
+    const sameName = (element) => element.content === newName
     const testi = persons.some(sameName)
     const sameNumber = (element) => element.number === newNumber
     const testi2 = persons.some(sameNumber)
-    const person = persons.find(person => person.name === newName)
+    const person = persons.find(person => person.content === newName)
     const changedNumber = {...person, number: newNumber}
     console.log(persons.some(sameName))
 
@@ -48,7 +48,7 @@ const App = () => {
         personService
           .update(person.id, changedNumber)
           .then(returnedContact => {
-            setPersons(persons.map(person => person.name !== nameObject.name ? person : returnedContact))
+            setPersons(persons.map(person => person.content !== nameObject.content ? person : returnedContact))
             setNewName('')
             setNewNumber('')
           })
@@ -70,10 +70,10 @@ const App = () => {
           })
       }
 
-    } else if(testi === true) {
+    } else if(testi === true && testi2 === true) {
         window.alert(`${newName} is already added to phonebook`)
 
-    } else {
+    } else if (testi === false && testi2 === false) {
       personService
         .create(nameObject)
         .then(returnedContact => {
@@ -89,6 +89,13 @@ const App = () => {
             setChangeMessage('')
           }, 5000)
         })
+        .catch(error => {
+          console.log(error.response.data)
+          setErrorMessage(JSON.stringify(error.response.data))
+          setTimeout(() => {
+            setErrorMessage('')
+          }, 5000)
+        })
     }
   }
 
@@ -96,14 +103,16 @@ const App = () => {
 
 //Yhteystiedon poistaminen
 
-  const deletePerson = (id, name) => {
+  const deletePerson = (id, content) => {
 
-    if(window.confirm(`Delete ${name} ?`)) {
+    const picked = persons.find(person => person.id === id)
+
+    if(window.confirm(`Delete ${picked.content} ?`)) {
       personService
-        .deletePerson(id, name)
+        .deletePerson(id, content)
         setPersons(persons.filter(person => person.id !== id))
         setChangeMessage(
-            `${name} deleted`
+            `${picked.content} deleted`
           )
           setTimeout(() => {
             setChangeMessage('')
@@ -177,7 +186,7 @@ return (
 
     <Filter handleSearch={handleSearch}/>
 
-    <PersonForm adder={addContact} name={newName} nameHand={handleNameChange}
+    <PersonForm adder={addContact} content={newName} nameHand={handleNameChange}
     num={newNumber} numHand={handleNumberChange}/>
 
     <h3>Numbers</h3>

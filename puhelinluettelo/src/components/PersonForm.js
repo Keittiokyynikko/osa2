@@ -1,13 +1,13 @@
 import React from 'react'
 
-const PersonForm = ({adder, name, nameHand, num, numHand}) => {
+const PersonForm = ({adder, content, nameHand, num, numHand}) => {
   return (
     <>
     <h3>add a new</h3>
     <form onSubmit={adder}>
       <div>
         name: <input
-          value={name}
+          value={content}
           onChange={nameHand}
           />
       </div>

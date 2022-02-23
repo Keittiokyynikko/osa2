@@ -80,7 +80,7 @@ const App = (props) => {
           `Note '${note.content}' was already deleted from server`
         )
         setTimeout(() => {
-          setErrorMessage(null)
+          setErrorMessage('')
         }, 5000)
         setNotes(notes.filter(n => n.id !== id))
       })
@@ -89,15 +89,15 @@ const App = (props) => {
 //Virheilmoituksen komponentti
 
 const Notification = ({message}) => {
-  if (message === null) {
+  if (message === '') {
     return null
+  } else {
+    return (
+      <div className="error">
+         {message}
+      </div>
+    )
   }
-
-  return (
-    <div className="error">
-       {message}
-    </div>
-  )
 }
 
 //Sisällön rendaus
